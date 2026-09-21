@@ -1,0 +1,54 @@
+============================================================
+  Phubb-Free - Stage 2 Evaluation Report
+============================================================
+
+  *** ALL METRICS ARE AGAINST A CONSTRUCTED PROXY LABEL ***
+  (phone-interaction during BT co-presence ≠ ground-truth phubbing)
+
+  Train samples: 33,718
+  Test samples:  19,554
+  Train users:   49
+  Test users:    13
+  Features:      8
+
+  * Selected model: Logistic Regression
+    Reason: LR F1 (0.5727) is within 2% of GBT F1 (0.5354); prefer LR for simplicity and cleaner TFLite conversion
+
+--------------------------------------------------
+  Logistic Regression - Evaluation Results
+--------------------------------------------------
+  Accuracy:   0.5672
+  Precision:  0.5163
+  Recall:     0.6429
+  F1 Score:   0.5727
+  AUC-ROC:    0.5900
+
+  Classification Report:
+                 precision    recall  f1-score   support
+
+no_phubbing (0)       0.63      0.50      0.56     10732
+   phubbing (1)       0.52      0.64      0.57      8822
+
+       accuracy                           0.57     19554
+      macro avg       0.57      0.57      0.57     19554
+   weighted avg       0.58      0.57      0.57     19554
+
+
+--------------------------------------------------
+  Gradient-Boosted Trees - Evaluation Results
+--------------------------------------------------
+  Accuracy:   0.5515
+  Precision:  0.5026
+  Recall:     0.5728
+  F1 Score:   0.5354
+  AUC-ROC:    0.5560
+
+  Classification Report:
+                 precision    recall  f1-score   support
+
+no_phubbing (0)       0.60      0.53      0.57     10732
+   phubbing (1)       0.50      0.57      0.54      8822
+
+       accuracy                           0.55     19554
+      macro avg       0.55      0.55      0.55     19554
+   weighted avg       0.56      0.55      0.55     19554
