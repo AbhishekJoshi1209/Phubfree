@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:provider/provider.dart';
 
-import '../../state/settings_controller.dart';
-import '../../state/theme_controller.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/app_spacing.dart';
-import '../../theme/app_text_styles.dart';
+import 'dev/ble_field_test_screen.dart';
+
+import '../state/settings_controller.dart';
+import '../state/theme_controller.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_spacing.dart';
+import '../theme/app_text_styles.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -630,6 +633,20 @@ class SettingsScreen extends StatelessWidget {
               style: AppTextStyles.label(AppColors.accent(b)),
             ),
           ),
+          if (kDebugMode || phubbDevTools) ...[
+            const SizedBox(height: AppSpacing.md),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const BleFieldTestScreen(),
+                ),
+              ),
+              child: Text(
+                'Developer: BLE field test',
+                style: AppTextStyles.label(AppColors.accent(b)),
+              ),
+            ),
+          ],
         ],
       ),
     );

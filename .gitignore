@@ -37,3 +37,5 @@ datasets/
 data/*.csv
 data/*.json
 # We are keeping models/ and data/*.parquet as they are small enough for GitHub and needed for the project.
+# BLE field-test logs (personal data; see docs/ble_field_test.md)
+ble_spike_logs/

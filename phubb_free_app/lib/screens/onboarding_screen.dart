@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/permission_service.dart';
-import '../../state/settings_controller.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/app_spacing.dart';
-import '../../theme/app_text_styles.dart';
+import '../services/permission_service.dart';
+import '../state/settings_controller.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_spacing.dart';
+import '../theme/app_text_styles.dart';
 
 /// 3-screen onboarding flow explaining why each permission is needed.
 /// Shown on first run only. Skippable. Re-openable from Settings.

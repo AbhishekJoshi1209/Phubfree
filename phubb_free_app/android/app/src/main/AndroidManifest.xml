@@ -1,6 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- BLE co-presence scanning. Android 12+: scan without location access
+         (neverForLocation); we only use RSSI and advertisement type, never
+         derive location. Android <= 11 requires location for any BLE scan. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <!-- Needed to read the list of paired devices (the user's own watch and
+         earbuds are excluded from "someone nearby"). -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+
     <application
-        android:label="phubb_free_app"
+        android:label="Phubb-Free"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

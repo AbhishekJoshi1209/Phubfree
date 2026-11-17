@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/phub_event.dart';
-import '../../data/phubbing_repository.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/app_spacing.dart';
-import '../../theme/app_text_styles.dart';
-import '../../widgets/shared_widgets.dart';
+import '../data/phub_event.dart';
+import '../data/phubbing_repository.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_spacing.dart';
+import '../theme/app_text_styles.dart';
+import '../widgets/shared_widgets.dart';
 
 class InsightsScreen extends StatefulWidget {
   const InsightsScreen({super.key});

@@ -126,6 +126,16 @@ Estimates assume one developer. Every phase ends with `flutter analyze` clean, `
 
 ### Phase 1 — BLE co-presence spike (2–3 days) ⚠️ do before Phase 2
 
+> **Status:** tooling built (branch `phase-0-stabilize`). **Field test not yet run.** Protocol:
+> [docs/ble_field_test.md](docs/ble_field_test.md).
+> Code: `lib/sensing/proximity/` (classifier, tracker, log format + evaluator, all plain Dart),
+> `lib/screens/dev/ble_field_test_screen.dart`, `tool/ble_replay.dart`.
+> Correction to the rule list below: `0xFE2C` (Fast Pair) is advertised by *accessories*, so it is treated as an
+> accessory, not a person. Apple adverts are split by Continuity type: Nearby Info, Handoff and Nearby Action count as
+> a person; AirPods pairing, Find My and iBeacon count as accessories. Microsoft is logged but not counted.
+> Not yet done: learning which devices are always around when you're alone (step 3, first bullet). Add it only if session 1 shows home
+> devices causing false positives.
+
 Goal: find out whether "another person is near" can be detected well enough, and freeze the heuristic.
 
 1. Add a debug-only screen (behind `kDebugMode`) that scans with `flutter_blue_plus` and lists each advertisement:
