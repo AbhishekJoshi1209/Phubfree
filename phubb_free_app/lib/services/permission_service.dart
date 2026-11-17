@@ -9,7 +9,7 @@ class PermissionService extends ChangeNotifier {
   bool get notificationAccessGranted => _notificationAccessGranted;
   bool get bluetoothGranted => _bluetoothGranted;
 
-  bool get allGranted => 
+  bool get allGranted =>
       _usageAccessGranted && _notificationAccessGranted && _bluetoothGranted;
 
   Future<void> requestUsageAccess() async {

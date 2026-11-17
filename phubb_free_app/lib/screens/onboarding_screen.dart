@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../services/permission_service.dart';
 import '../../state/settings_controller.dart';
 import '../../theme/app_colors.dart';
@@ -40,7 +41,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             'Phubb-Free needs to detect when you unlock your phone and '
             'switch between apps. This helps identify moments when you '
             'might be phubbing someone nearby.',
-        detail: 'We only track screen on/off and app switches — '
+        detail:
+            'We only track screen on/off and app switches — '
             'never what you type or view.',
         isGranted: permService.usageAccessGranted,
         onGrant: permService.requestUsageAccess,
@@ -139,7 +141,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         }
                       },
                       child: Text(
-                        _currentPage < pages.length - 1 ? 'Next' : 'Get started',
+                        _currentPage < pages.length - 1
+                            ? 'Next'
+                            : 'Get started',
                       ),
                     ),
                   ),
@@ -221,8 +225,11 @@ class _OnboardingPage extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.lock_outline_rounded,
-                    size: 16, color: AppColors.accent(b)),
+                Icon(
+                  Icons.lock_outline_rounded,
+                  size: 16,
+                  color: AppColors.accent(b),
+                ),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
                   child: Text(
@@ -240,8 +247,11 @@ class _OnboardingPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.check_circle_rounded,
-                    size: 20, color: AppColors.positive(b)),
+                Icon(
+                  Icons.check_circle_rounded,
+                  size: 20,
+                  color: AppColors.positive(b),
+                ),
                 const SizedBox(width: AppSpacing.sm),
                 Text(
                   'Granted',

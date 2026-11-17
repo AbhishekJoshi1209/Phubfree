@@ -33,14 +33,14 @@ void main() {
 
     test('returns probability in [0, 1]', () {
       final prob = service.predictProbability([
-        5.0,   // unlock_freq_1h
-        0.0,   // app_switch_rate_1h
-        3.0,   // notif_count_1h
+        5.0, // unlock_freq_1h
+        0.0, // app_switch_rate_1h
+        3.0, // notif_count_1h
         120.0, // notif_resp_latency_mean_1h
-        90.0,  // notif_resp_latency_median_1h
-        14.0,  // hour_of_day
-        2.0,   // day_of_week (Wednesday)
-        0.0,   // is_weekend
+        90.0, // notif_resp_latency_median_1h
+        14.0, // hour_of_day
+        2.0, // day_of_week (Wednesday)
+        0.0, // is_weekend
       ]);
       expect(prob, greaterThanOrEqualTo(0.0));
       expect(prob, lessThanOrEqualTo(1.0));
@@ -50,27 +50,45 @@ void main() {
       // Features near training mean should produce logit ≈ bias ≈ 0.026,
       // yielding probability ≈ sigmoid(0.026) ≈ 0.506
       final prob = service.predictProbability([
-        11.17, 0.0, 16.14, 551.74, 421.20, 13.87, 3.02, 0.27,
+        11.17,
+        0.0,
+        16.14,
+        551.74,
+        421.20,
+        13.87,
+        3.02,
+        0.27,
       ]);
       expect(prob, closeTo(0.506, 0.05));
     });
 
     test('very high unlock frequency increases phubbing probability', () {
       final baseline = service.predictProbability([
-        11.17, 0.0, 16.14, 551.74, 421.20, 13.87, 3.02, 0.0,
+        11.17,
+        0.0,
+        16.14,
+        551.74,
+        421.20,
+        13.87,
+        3.02,
+        0.0,
       ]);
       final highUnlock = service.predictProbability([
-        80.0, 0.0, 16.14, 551.74, 421.20, 13.87, 3.02, 0.0,
+        80.0,
+        0.0,
+        16.14,
+        551.74,
+        421.20,
+        13.87,
+        3.02,
+        0.0,
       ]);
       // Weight for unlock_freq_1h is positive (0.773), so more unlocks → higher prob.
       expect(highUnlock, greaterThan(baseline));
     });
 
     test('throws on wrong feature count', () {
-      expect(
-        () => service.predictProbability([1.0, 2.0]),
-        throwsArgumentError,
-      );
+      expect(() => service.predictProbability([1.0, 2.0]), throwsArgumentError);
     });
 
     test('throws if called before load', () {
@@ -93,9 +111,9 @@ void main() {
         now: saturday,
       );
       expect(features.length, 8);
-      expect(features[0], 7.0);       // unlock_freq_1h
-      expect(features[5], 15.0);      // hour_of_day
-      expect(features[7], 1.0);       // is_weekend (Saturday)
+      expect(features[0], 7.0); // unlock_freq_1h
+      expect(features[5], 15.0); // hour_of_day
+      expect(features[7], 1.0); // is_weekend (Saturday)
 
       // A Wednesday at 10:00
       final wednesday = DateTime(2026, 10, 14, 10, 0);

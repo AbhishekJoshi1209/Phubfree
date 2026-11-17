@@ -13,9 +13,9 @@ class SettingsController extends ChangeNotifier {
 
   // ── Quiet hours ──────────────────────────────────────────────
   TimeOfDay _quietStart = const TimeOfDay(hour: 22, minute: 0);
-  TimeOfDay _quietEnd   = const TimeOfDay(hour: 7, minute: 0);
+  TimeOfDay _quietEnd = const TimeOfDay(hour: 7, minute: 0);
   TimeOfDay get quietStart => _quietStart;
-  TimeOfDay get quietEnd   => _quietEnd;
+  TimeOfDay get quietEnd => _quietEnd;
 
   // ── App whitelist ────────────────────────────────────────────
   List<String> _whitelistedApps = ['Maps', 'Phone', 'Camera'];
@@ -30,10 +30,12 @@ class SettingsController extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     _nudgeSensitivity = prefs.getDouble('nudge_sensitivity') ?? 0.5;
     final styleIndex = prefs.getInt('nudge_style') ?? 0;
-    _nudgeStyle = NudgeStyle.values[styleIndex.clamp(0, NudgeStyle.values.length - 1)];
+    _nudgeStyle =
+        NudgeStyle.values[styleIndex.clamp(0, NudgeStyle.values.length - 1)];
     _quietStart = _timeFromMinutes(prefs.getInt('quiet_start') ?? 22 * 60);
-    _quietEnd   = _timeFromMinutes(prefs.getInt('quiet_end')   ?? 7 * 60);
-    _whitelistedApps = prefs.getStringList('whitelisted_apps') ?? ['Maps', 'Phone', 'Camera'];
+    _quietEnd = _timeFromMinutes(prefs.getInt('quiet_end') ?? 7 * 60);
+    _whitelistedApps =
+        prefs.getStringList('whitelisted_apps') ?? ['Maps', 'Phone', 'Camera'];
     _onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
     notifyListeners();
   }
@@ -54,7 +56,7 @@ class SettingsController extends ChangeNotifier {
 
   Future<void> setQuietHours(TimeOfDay start, TimeOfDay end) async {
     _quietStart = start;
-    _quietEnd   = end;
+    _quietEnd = end;
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('quiet_start', start.hour * 60 + start.minute);
@@ -97,7 +99,7 @@ class SettingsController extends ChangeNotifier {
     _nudgeSensitivity = 0.5;
     _nudgeStyle = NudgeStyle.vibration;
     _quietStart = const TimeOfDay(hour: 22, minute: 0);
-    _quietEnd   = const TimeOfDay(hour: 7, minute: 0);
+    _quietEnd = const TimeOfDay(hour: 7, minute: 0);
     _whitelistedApps = ['Maps', 'Phone', 'Camera'];
     _onboardingComplete = false;
     notifyListeners();
@@ -107,11 +109,7 @@ class SettingsController extends ChangeNotifier {
       TimeOfDay(hour: minutes ~/ 60, minute: minutes % 60);
 }
 
-enum NudgeStyle {
-  vibration,
-  silentNotification,
-  off,
-}
+enum NudgeStyle { vibration, silentNotification, off }
 
 extension NudgeStyleLabel on NudgeStyle {
   String get label {

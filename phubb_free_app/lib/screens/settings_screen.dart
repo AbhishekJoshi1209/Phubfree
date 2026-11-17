@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../state/settings_controller.dart';
 import '../../state/theme_controller.dart';
 import '../../theme/app_colors.dart';
@@ -21,10 +22,7 @@ class SettingsScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
           children: [
             const SizedBox(height: AppSpacing.xl),
-            Text(
-              'Settings',
-              style: AppTextStyles.h1(AppColors.textPrimary(b)),
-            ),
+            Text('Settings', style: AppTextStyles.h1(AppColors.textPrimary(b))),
             const SizedBox(height: AppSpacing.xxl),
 
             // ── Appearance ─────────────────────────────────────
@@ -88,7 +86,10 @@ class SettingsScreen extends StatelessWidget {
 
   // ── Theme selector (System / Light / Dark) ───────────────────
   Widget _buildThemeSelector(
-      BuildContext context, ThemeController ctrl, Brightness b) {
+    BuildContext context,
+    ThemeController ctrl,
+    Brightness b,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -108,8 +109,13 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _themeOption(BuildContext context, ThemeController ctrl,
-      ThemeMode mode, String label, Brightness b) {
+  Widget _themeOption(
+    BuildContext context,
+    ThemeController ctrl,
+    ThemeMode mode,
+    String label,
+    Brightness b,
+  ) {
     final isSelected = ctrl.mode == mode;
     return Expanded(
       child: GestureDetector(
@@ -125,9 +131,7 @@ class SettingsScreen extends StatelessWidget {
             child: Text(
               label,
               style: AppTextStyles.button(
-                isSelected
-                    ? AppColors.onAccent(b)
-                    : AppColors.textSecondary(b),
+                isSelected ? AppColors.onAccent(b) : AppColors.textSecondary(b),
               ),
             ),
           ),
@@ -138,7 +142,10 @@ class SettingsScreen extends StatelessWidget {
 
   // ── Sensitivity slider ───────────────────────────────────────
   Widget _buildSensitivitySlider(
-      BuildContext context, SettingsController settings, Brightness b) {
+    BuildContext context,
+    SettingsController settings,
+    Brightness b,
+  ) {
     final labels = ['Low', 'Medium', 'High'];
     final labelIndex = (settings.nudgeSensitivity * 2).round().clamp(0, 2);
 
@@ -175,10 +182,14 @@ class SettingsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Fewer nudges',
-                  style: AppTextStyles.bodySmall(AppColors.textSecondary(b))),
-              Text('More nudges',
-                  style: AppTextStyles.bodySmall(AppColors.textSecondary(b))),
+              Text(
+                'Fewer nudges',
+                style: AppTextStyles.bodySmall(AppColors.textSecondary(b)),
+              ),
+              Text(
+                'More nudges',
+                style: AppTextStyles.bodySmall(AppColors.textSecondary(b)),
+              ),
             ],
           ),
         ],
@@ -188,7 +199,10 @@ class SettingsScreen extends StatelessWidget {
 
   // ── Nudge style ──────────────────────────────────────────────
   Widget _buildNudgeStyleSelector(
-      BuildContext context, SettingsController settings, Brightness b) {
+    BuildContext context,
+    SettingsController settings,
+    Brightness b,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -253,7 +267,10 @@ class SettingsScreen extends StatelessWidget {
 
   // ── Quiet hours ──────────────────────────────────────────────
   Widget _buildQuietHours(
-      BuildContext context, SettingsController settings, Brightness b) {
+    BuildContext context,
+    SettingsController settings,
+    Brightness b,
+  ) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -266,8 +283,11 @@ class SettingsScreen extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.bedtime_outlined,
-              size: 20, color: AppColors.textSecondary(b)),
+          Icon(
+            Icons.bedtime_outlined,
+            size: 20,
+            color: AppColors.textSecondary(b),
+          ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
@@ -279,8 +299,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 Text(
                   '${_formatTime(settings.quietStart)} – ${_formatTime(settings.quietEnd)}',
-                  style:
-                      AppTextStyles.bodySmall(AppColors.textSecondary(b)),
+                  style: AppTextStyles.bodySmall(AppColors.textSecondary(b)),
                 ),
               ],
             ),
@@ -302,7 +321,9 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Future<void> _pickQuietHours(
-      BuildContext context, SettingsController settings) async {
+    BuildContext context,
+    SettingsController settings,
+  ) async {
     final start = await showTimePicker(
       context: context,
       initialTime: settings.quietStart,
@@ -320,7 +341,10 @@ class SettingsScreen extends StatelessWidget {
 
   // ── Whitelist ────────────────────────────────────────────────
   Widget _buildWhitelist(
-      BuildContext context, SettingsController settings, Brightness b) {
+    BuildContext context,
+    SettingsController settings,
+    Brightness b,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -340,8 +364,11 @@ class SettingsScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.apps_rounded,
-                      size: 20, color: AppColors.textSecondary(b)),
+                  Icon(
+                    Icons.apps_rounded,
+                    size: 20,
+                    color: AppColors.textSecondary(b),
+                  ),
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Text(
@@ -351,8 +378,11 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () => settings.removeWhitelistedApp(app),
-                    child: Icon(Icons.close_rounded,
-                        size: 18, color: AppColors.textSecondary(b)),
+                    child: Icon(
+                      Icons.close_rounded,
+                      size: 18,
+                      color: AppColors.textSecondary(b),
+                    ),
                   ),
                 ],
               ),
@@ -371,8 +401,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.add_rounded,
-                      size: 20, color: AppColors.accent(b)),
+                  Icon(Icons.add_rounded, size: 20, color: AppColors.accent(b)),
                   const SizedBox(width: AppSpacing.md),
                   Text(
                     'Add app',
@@ -388,21 +417,23 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Future<void> _addWhitelistApp(
-      BuildContext context, SettingsController settings) async {
+    BuildContext context,
+    SettingsController settings,
+  ) async {
     final controller = TextEditingController();
     final b = Theme.of(context).brightness;
     final result = await showDialog<String>(
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          title: Text('Add app to whitelist',
-              style: AppTextStyles.h2(AppColors.textPrimary(b))),
+          title: Text(
+            'Add app to whitelist',
+            style: AppTextStyles.h2(AppColors.textPrimary(b)),
+          ),
           content: TextField(
             controller: controller,
             autofocus: true,
-            decoration: const InputDecoration(
-              hintText: 'App name (e.g. Maps)',
-            ),
+            decoration: const InputDecoration(hintText: 'App name (e.g. Maps)'),
           ),
           actions: [
             TextButton(
@@ -424,7 +455,10 @@ class SettingsScreen extends StatelessWidget {
 
   // ── Data section ─────────────────────────────────────────────
   Widget _buildDataSection(
-      BuildContext context, SettingsController settings, Brightness b) {
+    BuildContext context,
+    SettingsController settings,
+    Brightness b,
+  ) {
     return Column(
       children: [
         _actionTile(
@@ -487,14 +521,18 @@ class SettingsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(label, style: AppTextStyles.body(color)),
-                  Text(subtitle,
-                      style: AppTextStyles.bodySmall(
-                          AppColors.textSecondary(b))),
+                  Text(
+                    subtitle,
+                    style: AppTextStyles.bodySmall(AppColors.textSecondary(b)),
+                  ),
                 ],
               ),
             ),
-            Icon(Icons.chevron_right_rounded,
-                size: 20, color: AppColors.textSecondary(b)),
+            Icon(
+              Icons.chevron_right_rounded,
+              size: 20,
+              color: AppColors.textSecondary(b),
+            ),
           ],
         ),
       ),
@@ -502,13 +540,18 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Future<void> _confirmDelete(
-      BuildContext context, SettingsController settings, Brightness b) async {
+    BuildContext context,
+    SettingsController settings,
+    Brightness b,
+  ) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          title: Text('Delete all data?',
-              style: AppTextStyles.h2(AppColors.textPrimary(b))),
+          title: Text(
+            'Delete all data?',
+            style: AppTextStyles.h2(AppColors.textPrimary(b)),
+          ),
           content: Text(
             'This will permanently erase all locally stored data, '
             'including your settings and history. This cannot be undone.',
@@ -534,16 +577,18 @@ class SettingsScreen extends StatelessWidget {
     if (confirmed == true && context.mounted) {
       await settings.deleteAllData();
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('All data deleted.')),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('All data deleted.')));
       }
     }
   }
 
   // ── About ────────────────────────────────────────────────────
   Widget _buildAbout(
-      BuildContext context, SettingsController settings, Brightness b) {
+    BuildContext context,
+    SettingsController settings,
+    Brightness b,
+  ) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -559,11 +604,15 @@ class SettingsScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('Phubb-Free',
-                  style: AppTextStyles.body(AppColors.textPrimary(b))),
+              Text(
+                'Phubb-Free',
+                style: AppTextStyles.body(AppColors.textPrimary(b)),
+              ),
               const Spacer(),
-              Text('v1.0.0',
-                  style: AppTextStyles.bodySmall(AppColors.textSecondary(b))),
+              Text(
+                'v1.0.0',
+                style: AppTextStyles.bodySmall(AppColors.textSecondary(b)),
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
@@ -594,9 +643,6 @@ class _SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final b = Theme.of(context).brightness;
-    return Text(
-      title,
-      style: AppTextStyles.label(AppColors.textSecondary(b)),
-    );
+    return Text(title, style: AppTextStyles.label(AppColors.textSecondary(b)));
   }
 }

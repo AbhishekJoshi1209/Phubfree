@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'app_colors.dart';
 import 'app_spacing.dart';
 
@@ -9,7 +9,7 @@ class AppThemeData {
   AppThemeData._();
 
   static ThemeData light() => _build(Brightness.light);
-  static ThemeData dark()  => _build(Brightness.dark);
+  static ThemeData dark() => _build(Brightness.dark);
 
   static ThemeData _build(Brightness brightness) {
     final cs = AppColors.colorScheme(brightness);
@@ -24,7 +24,7 @@ class AppThemeData {
       brightness: brightness,
       colorScheme: cs,
       scaffoldBackgroundColor: bg,
-      fontFamily: GoogleFonts.inter().fontFamily,
+      fontFamily: 'Inter',
 
       // ── App bar ──────────────────────────────────────────────
       appBarTheme: AppBarTheme(
@@ -35,7 +35,8 @@ class AppThemeData {
         systemOverlayStyle: isLight
             ? SystemUiOverlayStyle.dark
             : SystemUiOverlayStyle.light,
-        titleTextStyle: GoogleFonts.fraunces(
+        titleTextStyle: TextStyle(
+          fontFamily: 'Fraunces',
           fontSize: 22,
           fontWeight: FontWeight.w600,
           color: textPrimary,
@@ -68,8 +69,16 @@ class AppThemeData {
         unselectedItemColor: textSecondary,
         elevation: 0,
         type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600),
-        unselectedLabelStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
+        selectedLabelStyle: TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
       ),
 
       // ── Elevated button ──────────────────────────────────────
@@ -85,7 +94,11 @@ class AppThemeData {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
           ),
-          textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          textStyle: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
 
@@ -93,7 +106,11 @@ class AppThemeData {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: cs.primary,
-          textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          textStyle: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
 
@@ -109,7 +126,11 @@ class AppThemeData {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
           ),
-          textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+          textStyle: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
 

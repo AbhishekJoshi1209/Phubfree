@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'home_screen.dart';
 import 'insights_screen.dart';
 import 'settings_screen.dart';
@@ -24,10 +25,7 @@ class _AppShellState extends State<AppShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

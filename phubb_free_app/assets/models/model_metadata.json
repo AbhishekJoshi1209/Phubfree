@@ -1,5 +1,6 @@
 {
   "selected_model": "Logistic Regression",
+  "selection_reason": "LR F1 (0.5727) is within 2% of GBT F1 (0.5354); prefer LR for simplicity and cleaner TFLite conversion",
   "feature_names": [
     "unlock_freq_1h",
     "app_switch_rate_1h",
@@ -30,6 +31,20 @@
     1.9742696790349625,
     0.441770139392316
   ],
+  "metrics": {
+    "logistic_regression": {
+      "f1": 0.5727268137527137,
+      "auc_roc": 0.589961402105822,
+      "accuracy": 0.5671985271555692
+    },
+    "gradient_boosted_trees": {
+      "f1": 0.5353888535706718,
+      "auc_roc": 0.5560080016304578,
+      "accuracy": 0.5514984146466196
+    }
+  },
+  "proxy_label_note": "All metrics are evaluated against a constructed proxy label (phone-interaction during Bluetooth co-presence). This is NOT ground-truth phubbing. See project documentation.",
+  "default_threshold": 0.5,
   "weights": [
     0.7730879436645092,
     0.0,
@@ -41,5 +56,5 @@
     -0.12432960147531666
   ],
   "bias": 0.026458693428036185,
-  "default_threshold": 0.5
+  "latency_sentinel": -1.0
 }

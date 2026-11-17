@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../data/phub_event.dart';
 import '../state/settings_controller.dart';
 
@@ -88,8 +90,8 @@ class NudgeService extends ChangeNotifier {
     final threshold = sensitivityToThreshold(settings.nudgeSensitivity);
     if (probability < threshold) return false;
 
-    // 3. Not a phubbing moment (no one nearby)?
-    if (!event.isPossiblePhubbing) return false;
+    // 3. Not flagged (no one nearby, or score below the flag threshold)?
+    if (!event.flagged) return false;
 
     // 4. Whitelisted app?
     if (event.appName.isNotEmpty &&

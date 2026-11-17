@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../services/nudge_service.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
@@ -104,10 +105,8 @@ class _NudgeBanner extends StatelessWidget {
               Expanded(
                 child: Text(
                   message,
-                  style: AppTextStyles.body(AppColors.onAccent(b)).copyWith(
-                    fontWeight: FontWeight.w500,
-                    height: 1.35,
-                  ),
+                  style: AppTextStyles.body(AppColors.onAccent(b))
+                      .copyWith(fontWeight: FontWeight.w500, height: 1.35),
                 ),
               ),
               const SizedBox(width: AppSpacing.sm),

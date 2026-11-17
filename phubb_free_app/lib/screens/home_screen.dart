@@ -1,8 +1,10 @@
 import 'dart:async';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '../../data/phub_event.dart';
 import '../../data/phubbing_repository.dart';
 import '../../state/theme_controller.dart';
@@ -54,7 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xxl, AppSpacing.xl, 0,
+                  AppSpacing.xl,
+                  AppSpacing.xxl,
+                  AppSpacing.xl,
+                  0,
                 ),
                 child: _buildHero(today, yesterday, b),
               ),
@@ -64,7 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xl, AppSpacing.xl, 0,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  0,
                 ),
                 child: _buildWeekChart(repo, b),
               ),
@@ -74,7 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xl, AppSpacing.xl, 0,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  0,
                 ),
                 child: _buildMetrics(today, b),
               ),
@@ -84,7 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xl, AppSpacing.xl, 0,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  0,
                 ),
                 child: _buildMonitoringToggle(repo, b),
               ),
@@ -94,7 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xxl, AppSpacing.xl, AppSpacing.md,
+                  AppSpacing.xl,
+                  AppSpacing.xxl,
+                  AppSpacing.xl,
+                  AppSpacing.md,
                 ),
                 child: SectionHeader(
                   title: 'RECENT ACTIVITY',
@@ -117,8 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: EmptyState(
                   icon: Icons.timeline_rounded,
                   title: 'No activity yet',
-                  subtitle:
-                      'Phubb-Free will show moments here as they happen.',
+                  subtitle: 'Phubb-Free will show moments here as they happen.',
                 ),
               )
             else
@@ -156,14 +172,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final themeCtrl = context.read<ThemeController>();
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-        AppSpacing.xl, AppSpacing.lg, AppSpacing.lg, 0,
+        AppSpacing.xl,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        0,
       ),
       child: Row(
         children: [
-          Text(
-            'Phubb-Free',
-            style: AppTextStyles.h2(AppColors.textPrimary(b)),
-          ),
+          Text('Phubb-Free', style: AppTextStyles.h2(AppColors.textPrimary(b))),
           const Spacer(),
           // Theme toggle
           IconButton(
@@ -207,10 +223,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final diffText = diff < 0
         ? 'down from ${yesterday!.phubMoments} yesterday'
         : diff > 0
-            ? 'up from ${yesterday!.phubMoments} yesterday'
-            : yesterday != null
-                ? 'same as yesterday'
-                : '';
+        ? 'up from ${yesterday!.phubMoments} yesterday'
+        : yesterday != null
+        ? 'same as yesterday'
+        : '';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,14 +261,20 @@ class _HomeScreenState extends State<HomeScreen> {
   // ── 7-day bar chart ──────────────────────────────────────────
   Widget _buildWeekChart(PhubbingRepository repo, Brightness b) {
     final days = repo.dailySummaries(7).reversed.toList();
-    final maxY = days.fold<int>(
-            0, (max, d) => d.phubMoments > max ? d.phubMoments : max) +
+    final maxY =
+        days.fold<int>(
+          0,
+          (max, d) => d.phubMoments > max ? d.phubMoments : max,
+        ) +
         2;
 
     return Container(
       height: 140,
       padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.sm,
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -457,7 +479,10 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Phubb-Free', style: AppTextStyles.h2(AppColors.textPrimary(b))),
+                Text(
+                  'Phubb-Free',
+                  style: AppTextStyles.h2(AppColors.textPrimary(b)),
+                ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
                   'Version 1.0.0',
@@ -620,7 +645,7 @@ class _EventTileState extends State<_EventTile> {
                                 AppColors.textSecondary(b),
                               ),
                             ),
-                            if (event.isPossiblePhubbing) ...[
+                            if (event.flagged) ...[
                               const SizedBox(width: AppSpacing.sm),
                               StatusTag(
                                 text: 'Possible phubbing',
@@ -649,7 +674,10 @@ class _EventTileState extends State<_EventTile> {
             secondChild: Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(
-                AppSpacing.md, 0, AppSpacing.md, AppSpacing.md,
+                AppSpacing.md,
+                0,
+                AppSpacing.md,
+                AppSpacing.md,
               ),
               child: Container(
                 padding: const EdgeInsets.all(AppSpacing.md),
@@ -675,11 +703,11 @@ class _EventTileState extends State<_EventTile> {
                         '${event.responseLatencySec}s',
                         b,
                       ),
-                    _detailRow(
-                      'Nearby person',
-                      event.nearbyPersonDetected ? 'Yes' : 'No',
-                      b,
-                    ),
+                    _detailRow('Nearby person', switch (event.proximity) {
+                      ProximityState.near => 'Yes',
+                      ProximityState.notNear => 'No',
+                      ProximityState.unknown => 'Unknown',
+                    }, b),
                   ],
                 ),
               ),
@@ -703,10 +731,7 @@ class _EventTileState extends State<_EventTile> {
             '$label: ',
             style: AppTextStyles.bodySmall(AppColors.textSecondary(b)),
           ),
-          Text(
-            value,
-            style: AppTextStyles.bodySmall(AppColors.textPrimary(b)),
-          ),
+          Text(value, style: AppTextStyles.bodySmall(AppColors.textPrimary(b))),
         ],
       ),
     );

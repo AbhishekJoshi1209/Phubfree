@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math' as math;
+
 import 'package:flutter/services.dart' show rootBundle;
 
 /// Pure-Dart logistic regression inference service.
@@ -137,14 +138,14 @@ class PhubInferenceService {
     required DateTime now,
   }) {
     return [
-      unlockCountLastHour.toDouble(),       // unlock_freq_1h
-      appSwitchCountLastHour.toDouble(),     // app_switch_rate_1h
-      notifCountLastHour.toDouble(),         // notif_count_1h
-      notifRespLatencyMeanSec,               // notif_resp_latency_mean_1h
-      notifRespLatencyMedianSec,             // notif_resp_latency_median_1h
-      now.hour.toDouble(),                   // hour_of_day
-      now.weekday.toDouble() - 1,            // day_of_week (Mon=0 .. Sun=6)
-      (now.weekday >= 6) ? 1.0 : 0.0,       // is_weekend
+      unlockCountLastHour.toDouble(), // unlock_freq_1h
+      appSwitchCountLastHour.toDouble(), // app_switch_rate_1h
+      notifCountLastHour.toDouble(), // notif_count_1h
+      notifRespLatencyMeanSec, // notif_resp_latency_mean_1h
+      notifRespLatencyMedianSec, // notif_resp_latency_median_1h
+      now.hour.toDouble(), // hour_of_day
+      now.weekday.toDouble() - 1, // day_of_week (Mon=0 .. Sun=6)
+      (now.weekday >= 6) ? 1.0 : 0.0, // is_weekend
     ];
   }
 

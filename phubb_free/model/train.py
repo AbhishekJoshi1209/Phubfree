@@ -397,6 +397,14 @@ def train_and_evaluate(preprocessed: dict) -> dict:
         ),
         "default_threshold": 0.5,
     }
+    # The Flutter app runs inference in pure Dart from these parameters
+    # (see phubb_free/export_app_assets.py). Only a linear model has them.
+    if hasattr(best_model, "coef_"):
+        from phubb_free.model.preprocessing import LATENCY_SENTINEL
+
+        metadata["weights"] = best_model.coef_.ravel().tolist()
+        metadata["bias"] = float(best_model.intercept_.ravel()[0])
+        metadata["latency_sentinel"] = LATENCY_SENTINEL
     MODEL_METADATA_FILE.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     print(f"[Evaluation] Model metadata saved: {MODEL_METADATA_FILE}")
 

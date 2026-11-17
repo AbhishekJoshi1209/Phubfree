@@ -1,4 +1,5 @@
 import 'dart:collection';
+
 import '../data/phub_event.dart';
 import 'phub_inference_service.dart';
 
@@ -34,6 +35,11 @@ class RollingWindowAggregator {
   /// Duration of the sliding window.
   static const windowDuration = Duration(hours: 1);
 
+  /// Value used for the latency features when the window has no notification
+  /// latency data. Must match `LATENCY_SENTINEL` in
+  /// `phubb_free/model/preprocessing.py`, which the model was trained with.
+  static const double latencySentinel = -1.0;
+
   /// Internal ring-buffer of recent events, newest last.
   final Queue<_BufferEntry> _buffer = Queue<_BufferEntry>();
 
@@ -43,11 +49,13 @@ class RollingWindowAggregator {
   ///
   /// Automatically evicts entries older than [windowDuration].
   void record(PhubEvent event) {
-    _buffer.addLast(_BufferEntry(
-      timestamp: event.timestamp,
-      type: event.type,
-      responseLatencySec: event.responseLatencySec,
-    ));
+    _buffer.addLast(
+      _BufferEntry(
+        timestamp: event.timestamp,
+        type: event.type,
+        responseLatencySec: event.responseLatencySec,
+      ),
+    );
     _evict(event.timestamp);
   }
 
@@ -75,30 +83,37 @@ class RollingWindowAggregator {
 
   /// Mean notification response latency (seconds) over the window.
   ///
-  /// Returns 0.0 if there are no notification events with latency data.
+  /// Returns [latencySentinel] if there are no notification events with
+  /// latency data.
   double get notifRespLatencyMean {
     final latencies = _buffer
-        .where((e) =>
-            e.type == PhubEventType.notification &&
-            e.responseLatencySec != null)
+        .where(
+          (e) =>
+              e.type == PhubEventType.notification &&
+              e.responseLatencySec != null,
+        )
         .map((e) => e.responseLatencySec!)
         .toList();
-    if (latencies.isEmpty) return 0.0;
+    if (latencies.isEmpty) return latencySentinel;
     return latencies.reduce((a, b) => a + b) / latencies.length;
   }
 
   /// Median notification response latency (seconds) over the window.
   ///
-  /// Returns 0.0 if there are no notification events with latency data.
+  /// Returns [latencySentinel] if there are no notification events with
+  /// latency data.
   double get notifRespLatencyMedian {
-    final latencies = _buffer
-        .where((e) =>
-            e.type == PhubEventType.notification &&
-            e.responseLatencySec != null)
-        .map((e) => e.responseLatencySec!)
-        .toList()
-      ..sort();
-    if (latencies.isEmpty) return 0.0;
+    final latencies =
+        _buffer
+            .where(
+              (e) =>
+                  e.type == PhubEventType.notification &&
+                  e.responseLatencySec != null,
+            )
+            .map((e) => e.responseLatencySec!)
+            .toList()
+          ..sort();
+    if (latencies.isEmpty) return latencySentinel;
     final mid = latencies.length ~/ 2;
     if (latencies.length.isOdd) {
       return latencies[mid].toDouble();
@@ -136,8 +151,11 @@ class RollingWindowAggregator {
   }
 
   /// Returns `true` if the model thinks this is a phubbing moment.
-  bool isPhubbing(PhubInferenceService model,
-      {double? threshold, DateTime? now}) {
+  bool isPhubbing(
+    PhubInferenceService model, {
+    double? threshold,
+    DateTime? now,
+  }) {
     if (!model.isReady) return false;
     return model.predict(buildFeatures(now: now), threshold: threshold);
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_spacing.dart';
 import '../theme/app_text_styles.dart';
 import '../theme/app_colors.dart';
@@ -66,11 +67,7 @@ class StatusTag extends StatelessWidget {
   final String text;
   final Color color;
 
-  const StatusTag({
-    super.key,
-    required this.text,
-    required this.color,
-  });
+  const StatusTag({super.key, required this.text, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +80,7 @@ class StatusTag extends StatelessWidget {
         color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
       ),
-      child: Text(
-        text,
-        style: AppTextStyles.labelSmall(color),
-      ),
+      child: Text(text, style: AppTextStyles.labelSmall(color)),
     );
   }
 }
@@ -96,11 +90,7 @@ class SectionHeader extends StatelessWidget {
   final String title;
   final Widget? trailing;
 
-  const SectionHeader({
-    super.key,
-    required this.title,
-    this.trailing,
-  });
+  const SectionHeader({super.key, required this.title, this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +98,7 @@ class SectionHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: AppTextStyles.label(AppColors.textSecondary(b)),
-        ),
+        Text(title, style: AppTextStyles.label(AppColors.textSecondary(b))),
         ?trailing,
       ],
     );

@@ -1,8 +1,14 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:provider/provider.dart';
+
 import 'data/phubbing_repository.dart';
 import 'screens/app_shell.dart';
 import 'screens/onboarding_screen.dart';
+import 'sensing/phone_event_source.dart';
 import 'services/nudge_service.dart';
 import 'services/permission_service.dart';
 import 'services/phub_inference_service.dart';
@@ -13,6 +19,14 @@ import 'widgets/nudge_overlay.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Bundled fonts are SIL OFL 1.1; show their licences on the licences page.
+  LicenseRegistry.addLicense(() async* {
+    for (final family in const ['Fraunces', 'Inter']) {
+      final text = await rootBundle.loadString('assets/fonts/OFL-$family.txt');
+      yield LicenseEntryWithLineBreaks([family], text);
+    }
+  });
 
   // Load persisted preferences before the first frame so there is no
   // flash of the wrong theme.
@@ -28,9 +42,14 @@ void main() async {
 
   final nudgeService = NudgeService();
 
-  final repo = PhubbingRepository();
+  final repo = PhubbingRepository(source: createPhoneEventSource());
   repo.attachInferenceService(inferenceService);
-  repo.start();
+  // Keep the flagging threshold in sync with the user's sensitivity slider.
+  void syncThreshold() => repo.flagThreshold =
+      NudgeService.sensitivityToThreshold(settingsController.nudgeSensitivity);
+  syncThreshold();
+  settingsController.addListener(syncThreshold);
+  await repo.start();
 
   runApp(
     PhubbFreeApp(

@@ -105,7 +105,13 @@ class AndroidPhoneEventSource implements PhoneEventSource { ... } // platform ch
 
 Estimates assume one developer. Every phase ends with `flutter analyze` clean, `flutter test` green, and a commit.
 
-### Phase 0 — Stabilize the base (1–2 days)
+### Phase 0 — Stabilize the base (1–2 days) ✅ DONE (branch `phase-0-stabilize`)
+
+> Notes from doing it: the root `.gitignore` had a Python-template `lib/` rule that silently ignored all Flutter
+> source, now anchored to `/lib/`. For 0.8 the `google_fonts` package was **removed entirely**: the fonts are declared
+> in `pubspec.yaml`, so no font-download code ships. The bundled files are the exact hash-verified files the package used to
+> fetch, and the OFL licences are registered in `LicenseRegistry`. Run `python -m phubb_free.export_app_assets` after
+> every Stage 2 run.
 
 | Task | Roadmap | Files | Done when |
 |---|---|---|---|

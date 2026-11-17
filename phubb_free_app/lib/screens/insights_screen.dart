@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '../../data/phub_event.dart';
 import '../../data/phubbing_repository.dart';
 import '../../theme/app_colors.dart';
@@ -34,7 +35,10 @@ class _InsightsScreenState extends State<InsightsScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xl, AppSpacing.xl, 0,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  0,
                 ),
                 child: Text(
                   'Insights',
@@ -47,7 +51,10 @@ class _InsightsScreenState extends State<InsightsScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xl, AppSpacing.xl, 0,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  0,
                 ),
                 child: _buildPeriodToggle(b),
               ),
@@ -57,7 +64,10 @@ class _InsightsScreenState extends State<InsightsScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xl, AppSpacing.xl, 0,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  0,
                 ),
                 child: _buildTrendSummary(trend, b),
               ),
@@ -67,7 +77,10 @@ class _InsightsScreenState extends State<InsightsScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xl, AppSpacing.xl, 0,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  AppSpacing.xl,
+                  0,
                 ),
                 child: _buildChart(days, b),
               ),
@@ -77,7 +90,10 @@ class _InsightsScreenState extends State<InsightsScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.xl, AppSpacing.xxl, AppSpacing.xl, AppSpacing.md,
+                  AppSpacing.xl,
+                  AppSpacing.xxl,
+                  AppSpacing.xl,
+                  AppSpacing.md,
                 ),
                 child: SectionHeader(title: 'TOP APPS DURING SOCIAL MOMENTS'),
               ),
@@ -87,16 +103,11 @@ class _InsightsScreenState extends State<InsightsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
               sliver: SliverList.separated(
                 itemCount: repo.topApps.length,
-                separatorBuilder: (_, _) => Divider(
-                  color: AppColors.border(b),
-                  height: 1,
-                ),
+                separatorBuilder: (_, _) =>
+                    Divider(color: AppColors.border(b), height: 1),
                 itemBuilder: (context, index) {
                   final app = repo.topApps[index];
-                  return _AppRankTile(
-                    rank: index + 1,
-                    app: app,
-                  );
+                  return _AppRankTile(rank: index + 1, app: app);
                 },
               ),
             ),
@@ -164,8 +175,8 @@ class _InsightsScreenState extends State<InsightsScreen> {
     final trendText = isDown
         ? 'Phubbing is down ${trend.abs()}% this week'
         : trend > 0
-            ? 'Phubbing is up ${trend.abs()}% this week'
-            : 'Phubbing is about the same this week';
+        ? 'Phubbing is up ${trend.abs()}% this week'
+        : 'Phubbing is about the same this week';
 
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -200,14 +211,20 @@ class _InsightsScreenState extends State<InsightsScreen> {
 
   Widget _buildChart(List<DaySummary> days, Brightness b) {
     final reversed = days.reversed.toList();
-    final maxY = reversed.fold<int>(
-            0, (max, d) => d.phubMoments > max ? d.phubMoments : max) +
+    final maxY =
+        reversed.fold<int>(
+          0,
+          (max, d) => d.phubMoments > max ? d.phubMoments : max,
+        ) +
         2;
 
     return Container(
       height: 200,
       padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.sm,
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
