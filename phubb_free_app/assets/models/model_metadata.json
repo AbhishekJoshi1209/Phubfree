@@ -1,0 +1,60 @@
+{
+  "selected_model": "Logistic Regression",
+  "selection_reason": "LR F1 (0.5727) is within 2% of GBT F1 (0.5354); prefer LR for simplicity and cleaner TFLite conversion",
+  "feature_names": [
+    "unlock_freq_1h",
+    "app_switch_rate_1h",
+    "notif_count_1h",
+    "notif_resp_latency_mean_1h",
+    "notif_resp_latency_median_1h",
+    "hour_of_day",
+    "day_of_week",
+    "is_weekend"
+  ],
+  "scaler_mean": [
+    11.170887953022124,
+    0.0,
+    16.138234770745594,
+    551.7382493375652,
+    421.1957332433715,
+    13.866213891689899,
+    3.0172014947505783,
+    0.26582240939557505
+  ],
+  "scaler_scale": [
+    14.34630676147171,
+    1.0,
+    19.553032889899047,
+    4327.755093886601,
+    4266.921906221035,
+    5.977138492304158,
+    1.9742696790349625,
+    0.441770139392316
+  ],
+  "metrics": {
+    "logistic_regression": {
+      "f1": 0.5727268137527137,
+      "auc_roc": 0.589961402105822,
+      "accuracy": 0.5671985271555692
+    },
+    "gradient_boosted_trees": {
+      "f1": 0.5353888535706718,
+      "auc_roc": 0.5560080016304578,
+      "accuracy": 0.5514984146466196
+    }
+  },
+  "proxy_label_note": "All metrics are evaluated against a constructed proxy label (phone-interaction during Bluetooth co-presence). This is NOT ground-truth phubbing. See project documentation.",
+  "default_threshold": 0.5,
+  "weights": [
+    0.7730879436645092,
+    0.0,
+    -0.1602117964488213,
+    -0.7770244149951355,
+    0.7231334161759784,
+    -0.027997645195600707,
+    0.21869605327965677,
+    -0.12432960147531666
+  ],
+  "bias": 0.026458693428036185,
+  "latency_sentinel": -1.0
+}

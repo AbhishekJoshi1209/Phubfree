@@ -1,0 +1,5 @@
+package com.team4.phubb_free_app
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()

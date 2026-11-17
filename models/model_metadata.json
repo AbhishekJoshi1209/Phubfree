@@ -44,5 +44,17 @@
     }
   },
   "proxy_label_note": "All metrics are evaluated against a constructed proxy label (phone-interaction during Bluetooth co-presence). This is NOT ground-truth phubbing. See project documentation.",
-  "default_threshold": 0.5
+  "default_threshold": 0.5,
+  "weights": [
+    0.7730879436645092,
+    0.0,
+    -0.1602117964488213,
+    -0.7770244149951355,
+    0.7231334161759784,
+    -0.027997645195600707,
+    0.21869605327965677,
+    -0.12432960147531666
+  ],
+  "bias": 0.026458693428036185,
+  "latency_sentinel": -1.0
 }
